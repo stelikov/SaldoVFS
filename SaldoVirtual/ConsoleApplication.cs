@@ -25,6 +25,7 @@ namespace SaldoVirtual
             Console.WriteLine("/addFolder [name]  - Add Folder To Current");
             Console.WriteLine("/removeFolder [name]  - Remove Folder From Current");
             Console.WriteLine("/current  - Get Current Folder");
+            Console.WriteLine("/addFile [name] [realPath] - adds file, real path is C:/react/test.txt for example");
             Console.WriteLine("/commands  - Get commands Menu");
             Console.WriteLine("/cd [name] - switch to folder (..) go back ");
             Console.WriteLine("/listFiles - List Files in Current Folder");
@@ -45,17 +46,21 @@ namespace SaldoVirtual
                 Console.WriteLine(string.Empty);
                 string command;
                 command = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(command.Trim())) { continue; }
                 var items = command.Split(" ");
+
 
                 switch (items[0])
                 {
                     case "/addFolder":
+
                         Console.WriteLine("Adding VirtualFolder.");
                         try
                         {
                             this.fileService.AddVirtualFolder(items[1]);
                             Console.WriteLine("Vritual Folder Added");
-                        } 
+                        }
                         catch (Exception ex)
                         {
                             Console.WriteLine("Error Occured {0}", ex);
@@ -64,6 +69,7 @@ namespace SaldoVirtual
                         break;
 
                     case "/removeFolder":
+
                         Console.WriteLine("Removing VirtualFolder.");
 
                         try
@@ -76,7 +82,9 @@ namespace SaldoVirtual
                         }
 
                         break;
+
                     case "/current":
+
                         var name = this.fileService.GetCurrent();
                         if (string.IsNullOrEmpty(name))
                         {
@@ -86,17 +94,22 @@ namespace SaldoVirtual
                         {
                             Console.WriteLine("You are in in {0}", name);
                         }
-                      
+
                         break;
 
                     case "/listFiles":
+
                         Console.WriteLine("Files in current Folder");
                         this.fileService.DisplayList();
                         break;
+
                     case "/commands":
+
                         this.Intro();
                         break;
+
                     case "/addFile":
+
                         Console.WriteLine("adding File");
                         try
                         {
@@ -107,14 +120,17 @@ namespace SaldoVirtual
                         {
                             Console.WriteLine("Error occured During adding File", ex);
                         }
+
                         break;
 
                     case "/cd":
+
                         Console.WriteLine("Switching Folder:");
                         this.fileService.ChangeFolder(items[1]);
                         break;
 
                     case "/tree":
+
                         Console.WriteLine("Displaying Virtual Tree");
                         Console.WriteLine(string.Empty);
                         this.fileService.DisplayTree();
@@ -122,11 +138,15 @@ namespace SaldoVirtual
                         break;
 
                     case "/backup":
+
                         Console.WriteLine("Backuping");
                         try
                         {
                             this.backupService.BackupFile(Directory.GetCurrentDirectory() + "\\" + this.configuration.GetSection("databaseFile").Value, this.configuration.GetSection("databaseFile").Value);
                             this.backupService.BackupFiles();
+                            Console.WriteLine("Backuping");
+
+                            // TODO separate backups
                         }
                         catch (Exception ex)
                         {
@@ -134,7 +154,9 @@ namespace SaldoVirtual
                         }
 
                         break;
+
                     case "/quit":
+
                         quitNow = true;
                         break;
 
