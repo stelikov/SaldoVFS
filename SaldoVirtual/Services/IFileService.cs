@@ -17,5 +17,7 @@ namespace SaldoVirtual
         void DisplayTree(); // TODO MERGE TO ONE method
 
         VirtualFile AddFile(string name, string file);
+
+        void RemoveFile(string name);
     }
 }

@@ -23,7 +23,7 @@ namespace SaldoVirtual.Services
            
             foreach (var file in tree.DirectoryData)
             {
-                Console.WriteLine(string.Concat(intend, " File ", file.GetFileName(), !string.IsNullOrEmpty(file.GetFileGuid()) ? file.GetFileGuid() : "-"));
+                Console.WriteLine(string.Concat(intend, " File ", file.GetFileName(), " ", !string.IsNullOrEmpty(file.GetFileGuid()) ? file.GetFileGuid() : "-"));
             }
 
             foreach (var dir in tree.Items)

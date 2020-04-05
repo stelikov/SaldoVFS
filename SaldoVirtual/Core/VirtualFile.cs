@@ -22,6 +22,10 @@ namespace SaldoVirtual
             this.text = text;
             this.guid = id;
         }
+        public string GetFilePath()
+        {
+            return this.path;
+        }
 
         public string GetFileName()
         {

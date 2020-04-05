@@ -49,12 +49,14 @@ namespace SaldoVirtual
 
                 if (string.IsNullOrEmpty(command.Trim())) { continue; }
                 var items = command.Split(" ");
-
+                if (items == null) { continue; }
+                if (string.IsNullOrEmpty(items[0])) { continue; }
 
                 switch (items[0])
                 {
                     case "/addFolder":
-
+                        if (items.Length <= 1) { continue; }
+                        if (string.IsNullOrEmpty(items[1])) { continue; }
                         Console.WriteLine("Adding VirtualFolder.");
                         try
                         {
@@ -68,8 +70,28 @@ namespace SaldoVirtual
 
                         break;
 
+                    case "/removeFile":
+
+                        if (items.Length <= 1) { continue; }
+                        if (string.IsNullOrEmpty(items[1])) { continue; }
+                        Console.WriteLine("Removing File");
+
+                        try
+                        {
+                            this.fileService.RemoveFile(items[1]);
+                            Console.WriteLine("Fail Removed");
+                        } 
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Removing File Error {0}", ex);
+                        }
+                        
+                        break;
+
                     case "/removeFolder":
 
+                        if (items.Length <= 1) { continue; }
+                        if (string.IsNullOrEmpty(items[1])) { continue; }
                         Console.WriteLine("Removing VirtualFolder.");
 
                         try

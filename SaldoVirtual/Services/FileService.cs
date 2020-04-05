@@ -61,9 +61,22 @@ namespace SaldoVirtual.Services
             this.attachmentFileStorage.SaveAttachmentFile(localFile, fileName);
             var file = this.virtualDirectory.AddFile(name, fileName, id);
             
+            //TODO add RemoveAdded file if failed to add in virtual system
+
             this.propertyChanged();
 
             return file;
+        }
+
+        public void RemoveFile(string name)
+        {
+            var file = this.virtualDirectory.RemoveFile(name);
+            if (file != null)
+            {
+                attachmentFileStorage.RemoveAttachmentFile(file.GetFilePath());
+                this.propertyChanged();
+            }
+
         }
 
         public void RemoveVirtualFolder(string name)

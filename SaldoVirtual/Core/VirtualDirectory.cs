@@ -90,6 +90,19 @@ namespace SaldoVirtual
             return file;
         }
 
+        public VirtualFile RemoveFile(string name)
+        {
+            VirtualFile item = this.Current.DirectoryData.Where(t => t.GetFileName() == name).FirstOrDefault();
+            if (item != null)
+            {
+                var copy = item;
+                this.Current.DirectoryData.Remove(item);
+                return copy;
+            }
+
+            return null;
+        }
+
         public void DisplayFiles()
         {
             foreach (var item in this.Current.DirectoryData)
